@@ -1,4 +1,21 @@
 ThatDriver::Application.routes.draw do
+
+  #api reference http://railscasts.com/episodes/350-rest-api-versioning?view=asciicast
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      #get token
+      get '/auth_token', to: 'get_token#session'
+      get '/get_taxi', to: 'taxis#get_taxi'
+      post '/rate_taxi', to: 'taxis#rate_taxi'
+
+      # get '/myreports'
+
+      # post '/report_lost'
+      # post '/report_found'
+    end
+  end
+
+
   resources :found_items
 
   resources :lost_items
