@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Plate no:
+  = @taxi.plate_no
+%p
+  %b Owner:
+  = @taxi.owner
+%p
+  %b Color:
+  = @taxi.color
+
+= link_to 'Edit', edit_taxi_path(@taxi)
+\|
+= link_to 'Back', taxis_path

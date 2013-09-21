@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  plate_no: MyString
+  owner: MyString
+  color: MyString
+
+two:
+  plate_no: MyString
+  owner: MyString
+  color: MyString

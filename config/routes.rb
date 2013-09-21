@@ -1,8 +1,14 @@
 ThatDriver::Application.routes.draw do
+  resources :taxis
+
+  root :to => 'home#index'
+
+  get "home/index"
+
   devise_for :users
   resources :users
 
-  root :to => "home#index" #for devise
+  # root :to => "/index.html" #for devise
 
   
   # The priority is based upon order of creation: first created -> highest priority.

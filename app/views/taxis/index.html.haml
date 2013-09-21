@@ -1,0 +1,23 @@
+%h1 Listing taxis
+
+%table
+  %tr
+    %th Plate no
+    %th Owner
+    %th Color
+    %th
+    %th
+    %th
+
+  - @taxis.each do |taxi|
+    %tr
+      %td= taxi.plate_no
+      %td= taxi.owner
+      %td= taxi.color
+      %td= link_to 'Show', taxi
+      %td= link_to 'Edit', edit_taxi_path(taxi)
+      %td= link_to 'Destroy', taxi, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Taxi', new_taxi_path

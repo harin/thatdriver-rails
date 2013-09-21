@@ -1,0 +1,19 @@
+= form_for @taxi do |f|
+  - if @taxi.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@taxi.errors.count, "error")} prohibited this taxi from being saved:"
+      %ul
+        - @taxi.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :plate_no
+    = f.text_field :plate_no
+  .field
+    = f.label :owner
+    = f.text_field :owner
+  .field
+    = f.label :color
+    = f.text_field :color
+  .actions
+    = f.submit 'Save'
