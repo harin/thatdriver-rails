@@ -32,13 +32,14 @@ module Api
         end
 
       end
-
-      def restrict_access
-        puts '****************hey'
-        authenticate_or_request_with_http_token do |token, options|
-          true
-        end
-      end
+      
+# doesn't fucking work
+      # def restrict_access
+      #   puts '****************hey'
+      #   authenticate_or_request_with_http_token do |token, options|
+      #     true
+      #   end
+      # end
 
 
     end

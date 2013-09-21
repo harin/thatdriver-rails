@@ -4,13 +4,13 @@ ThatDriver::Application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       #get token
-      get '/auth_token', to: 'get_token#session'
+      get '/get_token', to: 'api#get_token'
       get '/get_taxi', to: 'taxis#get_taxi'
       post '/rate_taxi', to: 'taxis#rate_taxi'
 
       # get '/myreports'
 
-      # post '/report_lost'
+      post '/report_lost', to: 'items#report_lost'
       # post '/report_found'
     end
   end
