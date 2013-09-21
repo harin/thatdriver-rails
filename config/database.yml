@@ -17,9 +17,9 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: ThatDriver_development
+  database: ThatDriver_development_2
   pool: 5
-  username: ThatDriver
+  username: harinsanghirun 
   password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
