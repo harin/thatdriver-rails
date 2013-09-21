@@ -1,0 +1,23 @@
+%h1 Listing lost_items
+
+%table
+  %tr
+    %th Returned
+    %th Location
+    %th When
+    %th
+    %th
+    %th
+
+  - @lost_items.each do |lost_item|
+    %tr
+      %td= lost_item.returned
+      %td= lost_item.location
+      %td= lost_item.when
+      %td= link_to 'Show', lost_item
+      %td= link_to 'Edit', edit_lost_item_path(lost_item)
+      %td= link_to 'Destroy', lost_item, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Lost item', new_lost_item_path

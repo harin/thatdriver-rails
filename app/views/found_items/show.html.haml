@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Returned:
+  = @found_item.returned
+%p
+  %b Location:
+  = @found_item.location
+%p
+  %b When:
+  = @found_item.when
+%p
+  %b Description:
+  = @found_item.description
+%p
+  %b Belongs to:
+  = @found_item.belongs_to
+
+= link_to 'Edit', edit_found_item_path(@found_item)
+\|
+= link_to 'Back', found_items_path

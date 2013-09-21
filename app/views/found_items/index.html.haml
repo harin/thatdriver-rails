@@ -1,0 +1,27 @@
+%h1 Listing found_items
+
+%table
+  %tr
+    %th Returned
+    %th Location
+    %th When
+    %th Description
+    %th Belongs to
+    %th
+    %th
+    %th
+
+  - @found_items.each do |found_item|
+    %tr
+      %td= found_item.returned
+      %td= found_item.location
+      %td= found_item.when
+      %td= found_item.description
+      %td= found_item.belongs_to
+      %td= link_to 'Show', found_item
+      %td= link_to 'Edit', edit_found_item_path(found_item)
+      %td= link_to 'Destroy', found_item, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Found item', new_found_item_path

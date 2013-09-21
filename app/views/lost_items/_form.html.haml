@@ -1,0 +1,19 @@
+= form_for @lost_item do |f|
+  - if @lost_item.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@lost_item.errors.count, "error")} prohibited this lost_item from being saved:"
+      %ul
+        - @lost_item.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :returned
+    = f.check_box :returned
+  .field
+    = f.label :location
+    = f.text_field :location
+  .field
+    = f.label :when
+    = f.datetime_select :when
+  .actions
+    = f.submit 'Save'

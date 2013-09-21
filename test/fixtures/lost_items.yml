@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  returned: false
+  location: MyString
+  when: 2013-09-21 16:00:18
+
+two:
+  returned: false
+  location: MyString
+  when: 2013-09-21 16:00:18

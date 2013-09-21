@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Returned:
+  = @lost_item.returned
+%p
+  %b Location:
+  = @lost_item.location
+%p
+  %b When:
+  = @lost_item.when
+
+= link_to 'Edit', edit_lost_item_path(@lost_item)
+\|
+= link_to 'Back', lost_items_path
