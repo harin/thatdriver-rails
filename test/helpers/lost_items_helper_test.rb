@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class LostItemsHelperTest < ActionView::TestCase
+class ItemsHelperTest < ActionView::TestCase
 end

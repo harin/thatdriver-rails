@@ -1,14 +1,14 @@
 require 'test_helper'
 
-class LostItemsControllerTest < ActionController::TestCase
+class ItemsControllerTest < ActionController::TestCase
   setup do
-    @lost_item = lost_items(:one)
+    @item = items(:one)
   end
 
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:lost_items)
+    assert_not_nil assigns(:items)
   end
 
   test "should get new" do
@@ -16,34 +16,34 @@ class LostItemsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create lost_item" do
-    assert_difference('LostItem.count') do
-      post :create, lost_item: { location: @lost_item.location, returned: @lost_item.returned, when: @lost_item.when }
+  test "should create item" do
+    assert_difference('Item.count') do
+      post :create, item: { location: @item.location, returned: @item.returned, when: @item.when }
     end
 
-    assert_redirected_to lost_item_path(assigns(:lost_item))
+    assert_redirected_to item_path(assigns(:item))
   end
 
-  test "should show lost_item" do
-    get :show, id: @lost_item
+  test "should show item" do
+    get :show, id: @item
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @lost_item
+    get :edit, id: @item
     assert_response :success
   end
 
-  test "should update lost_item" do
-    patch :update, id: @lost_item, lost_item: { location: @lost_item.location, returned: @lost_item.returned, when: @lost_item.when }
-    assert_redirected_to lost_item_path(assigns(:lost_item))
+  test "should update item" do
+    patch :update, id: @item, item: { location: @item.location, returned: @item.returned, when: @item.when }
+    assert_redirected_to item_path(assigns(:item))
   end
 
-  test "should destroy lost_item" do
-    assert_difference('LostItem.count', -1) do
-      delete :destroy, id: @lost_item
+  test "should destroy item" do
+    assert_difference('Item.count', -1) do
+      delete :destroy, id: @item
     end
 
-    assert_redirected_to lost_items_path
+    assert_redirected_to items_path
   end
 end

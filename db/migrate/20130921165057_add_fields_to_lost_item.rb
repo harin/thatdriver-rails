@@ -1,4 +1,4 @@
-class AddFieldsToLostItem < ActiveRecord::Migration
+class AddFieldsToItem < ActiveRecord::Migration
   def change
     add_column :lost_items, :item_name, :string
     add_column :lost_items, :plate_no, :string

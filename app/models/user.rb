@@ -2,7 +2,12 @@ class User < ActiveRecord::Base
   before_save :ensure_authentication_token
 
   has_many :rates
-  has_many :lost_items
+  has_many :founds
+  has_many :items, through: :founds
+  has_many :losts
+  has_many :items, through: :losts
+
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

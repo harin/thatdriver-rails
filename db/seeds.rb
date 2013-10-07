@@ -8,5 +8,6 @@
 
 
 User.create(first_name:"Morgan", last_name:"Freeman", email:"freeman@heaven.com", password:"123456", username:"freeman")
+User.create(first_name:"Chuck", last_name:"Norris", email:"norris@rhk.com", password:"123456", username:"norris")
 
 
