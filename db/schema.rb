@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130921163207) do
+ActiveRecord::Schema.define(version: 20130921165134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,10 @@ ActiveRecord::Schema.define(version: 20130921163207) do
     t.integer  "taxi_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "item_name"
+    t.string   "plate_no"
+    t.text     "taxi_description"
+    t.string   "contact"
   end
 
   create_table "lost_items", force: true do |t|
@@ -34,6 +38,10 @@ ActiveRecord::Schema.define(version: 20130921163207) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "item_name"
+    t.string   "plate_no"
+    t.text     "taxi_description"
+    t.string   "contact"
   end
 
   create_table "rates", force: true do |t|

@@ -52,9 +52,9 @@ module Api
       def authenticate_user_from_token!
         user_token = params[:auth_token].presence
         @user       = user_token && User.find_by(authentication_token:user_token)
-        print '***********'
-        puts request.authorization.to_s
-        puts request.headers['Authorization'].to_s
+        # print '***********'
+        # puts request.authorization.to_s
+        # puts request.headers['Authorization'].to_s
         if @user
           # Notice we are passing store false, so the user is not
           # actually stored in the session and a token is needed

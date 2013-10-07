@@ -8,10 +8,10 @@ ThatDriver::Application.routes.draw do
       get '/get_taxi', to: 'taxis#get_taxi'
       post '/rate_taxi', to: 'taxis#rate_taxi'
 
-      # get '/myreports'
+      get '/myreports', to: 'items#get_my_report'
 
       post '/report_lost', to: 'items#report_lost'
-      # post '/report_found'
+      post '/report_found', to: 'items#report_found'
     end
   end
 
