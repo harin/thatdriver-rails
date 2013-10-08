@@ -1,7 +1,7 @@
-get '/api/v1/get_token?username=<username>&password=<password>'
+GET "/api/v1/get_token?username=<username>&password=<password>"
 
-get '/api/v1/get_taxi?plate_no=<plate_no>'
-post '/api/v1/rate_taxi'
+GET "/api/v1/get_taxi?plate_no=<plate_no>"
+POST "/api/v1/rate_taxi"
   form-data
   {
     auth_token: <auth_token>
@@ -10,9 +10,9 @@ post '/api/v1/rate_taxi'
     rating: <-1,0,1>
   }
 
-get '/api/v1/myreports?auth_token=<auth_token>'
+GET "/api/v1/myreports?auth_token=<auth_token>"
 
-post '/api/v1/report_lost'
+POST "/api/v1/report_lost"
   form-data
   {
     auth_token: <auth_token>
@@ -21,10 +21,10 @@ post '/api/v1/report_lost'
     plate_no: <plate_no>
     taxi_description: <description>
     contact: <contact>
-    time_lost: <iso8601 format e.g. '2001-02-03T04:05:06+07:00'>
+    time_lost: <iso8601 format e.g. "2001-02-03T04:05:06+07:00">
   }
 
-post '/api/v1/report_found'
+POST "/api/v1/report_found"
   form-data
   {
     auth_token: <auth_token>
@@ -33,5 +33,5 @@ post '/api/v1/report_found'
     plate_no: <plate_no>
     taxi_description: <description>
     contact: <contact>
-    time_found: <iso8601 format e.g. '2001-02-03T04:05:06+07:00'>
+    time_found: <iso8601 format e.g. "2001-02-03T04:05:06+07:00">
   }
