@@ -1,16 +1,84 @@
 GET "/api/v1/get_token?username=<username>&password=<password>"
+  {
+    auth_token: "YhzNCqUE4g4K4A9x4Rve",
+    success: true
+  }
 
 GET "/api/v1/get_taxi?plate_no=<plate_no>"
+  {
+    data: {
+          ratings: [
+              {
+                comment: null,
+                timestamp: 1381224719,
+                rating: 1
+              }
+            ],
+            likes: 1,
+            dislikes: 0,
+            neutral: 0,
+            taxi: {
+              id: 1,
+              plate_no: "สย1234",
+              owner: null,
+              color: null,
+              created_at: "2013-10-08T09:29:29.000Z",
+              updated_at: "2013-10-08T09:29:29.000Z"
+            },
+            reported_lost_items: 3
+          },
+    success: true
+  }
+
 POST "/api/v1/rate_taxi"
   form-data
   {
     auth_token: <auth_token>
     plate_no: <plate_no>
     comment: <comment>
-    rating: <-1,0,1>
+    vote: <-1,0,1>
   }
 
 GET "/api/v1/myreports?auth_token=<auth_token>"
+  {
+  success: true,
+  data: {
+        found_items: [
+          {
+            id: 3,
+            returned: false,
+            location: "here",
+            when: "2001-02-02T21:05:06.000Z",
+            description: null,
+            user_id: null,
+            created_at: "2013-10-08T09:34:14.000Z",
+            updated_at: "2013-10-08T09:34:14.000Z",
+            item_name: "aaaaaaaaaaá",
+            plate_no: "สย1234",
+            taxi_description: "adsfasdf",
+            contact: "adsfasdf",
+            taxi_id: 1
+          }
+        ],
+        lost_items: [
+          {
+            id: 1,
+            returned: false,
+            location: "here",
+            when: "2001-02-02T21:05:06.000Z",
+            description: null,
+            user_id: null,
+            created_at: "2013-10-08T09:29:29.000Z",
+            updated_at: "2013-10-08T09:29:29.000Z",
+            item_name: "aaaaaaaaaaá",
+            plate_no: "สย1234",
+            taxi_description: "adsfasdf",
+            contact: "adsfasdf",
+            taxi_id: 1
+          }
+        ]
+        }
+  }
 
 POST "/api/v1/report_lost"
   form-data

@@ -16,39 +16,6 @@ module Api
 
       #helper methods
       private
-      def taxi_json_with_ratings(taxi)
-        ratings = Rate.where(taxi_id: taxi.id)
-        ratings_array = []
-
-        likes = 0
-        dislikes = 0
-        neutral = 0
-        ratings.each do |rate|
-          rate_hash = {
-            comment:rate.comment,
-            timestamp:rate.created_at.to_i, 
-            rating:rate.rating
-          }
-          ratings_array << rate_hash
-
-          case rate.rating
-          when -1 then dislikes += 1
-          when 0 then neutral += 1
-          when 1 then likes += 1
-          end
-        end
-
-        data = {}
-        data[:ratings] = ratings_array
-        data[:likes] = likes
-        data[:dislikes] = dislikes
-        data[:neutral] = neutral
-        data[:taxi] = taxi.as_json
-
-        return data
-      end
-
-
       def authenticate_user_from_token!
         user_token = params[:auth_token].presence
         @user       = user_token && User.find_by(authentication_token:user_token)

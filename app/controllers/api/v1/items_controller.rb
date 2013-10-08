@@ -44,7 +44,7 @@ module Api
         rescue Exception => e
           #clean up
           item.destroy unless item.nil?
-          found.destroy unless item.nil?
+          found.destroy unless found.nil?
           render json:{success:true, message: e.to_s}
         end
       end

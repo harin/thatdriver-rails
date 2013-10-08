@@ -8,7 +8,7 @@ module Api
       def get_taxi
         plate_no = params[:plate_no]
         taxi = Taxi.find_or_create_by(plate_no: plate_no)
-        data = taxi_json_with_ratings(taxi)
+        data = taxi.summary #taxi_json_with_ratings(taxi)
 
         render  json: {data:data, success:true}
       end
