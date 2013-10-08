@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131007065258) do
+ActiveRecord::Schema.define(version: 20131008085553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,7 +52,10 @@ ActiveRecord::Schema.define(version: 20131007065258) do
     t.string   "plate_no"
     t.text     "taxi_description"
     t.string   "contact"
+    t.integer  "taxi_id"
   end
+
+  add_index "items", ["taxi_id"], name: "index_items_on_taxi_id", using: :btree
 
   create_table "losts", force: true do |t|
     t.integer  "item_id"

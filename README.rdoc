@@ -1,28 +1,37 @@
-== README
+get '/api/v1/get_token?username=<username>&password=<password>'
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+get '/api/v1/get_taxi?plate_no=<plate_no>'
+post '/api/v1/rate_taxi'
+  form-data
+  {
+    auth_token: <auth_token>
+    plate_no: <plate_no>
+    comment: <comment>
+    rating: <-1,0,1>
+  }
 
-Things you may want to cover:
+get '/api/v1/myreports?auth_token=<auth_token>'
 
-* Ruby version
+post '/api/v1/report_lost'
+  form-data
+  {
+    auth_token: <auth_token>
+    item_name: <item_name>
+    location: <location>
+    plate_no: <plate_no>
+    taxi_description: <description>
+    contact: <contact>
+    time_lost: <iso8601 format e.g. '2001-02-03T04:05:06+07:00'>
+  }
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+post '/api/v1/report_found'
+  form-data
+  {
+    auth_token: <auth_token>
+    item_name: <item_name>
+    location: <location>
+    plate_no: <plate_no>
+    taxi_description: <description>
+    contact: <contact>
+    time_found: <iso8601 format e.g. '2001-02-03T04:05:06+07:00'>
+  }

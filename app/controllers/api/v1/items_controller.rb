@@ -5,35 +5,13 @@ module Api
       before_filter :authenticate_user_from_token!
       #GET /api/get_my_report
       def get_my_report
-        if @user # provided by authenticate_user_from_token!
+        if @user # provided by authenticate_user_from_token.
 
-          found_items = []
-          founds = @user.founds
-          founds.each do |f|
-            found_items << f.item unless f.item.nil?
-          end
-
-          lost_items = []
-          losts = @user.losts
-          losts.each do |l|
-            lost_items << l.item unless l.item.nil?
-          end
-
-
-          render json:{success: true, data: {found_items: found_items.as_json, lost_items: lost_items}}
+          render json:{success: true, data: {found_items: @user.found_items.as_json, lost_items: @user.lost_items.as_json}}
         else
           render json:{success: false}
         end
       end
-# {
-#   item_name:
-#   item_desc:
-#   location:
-#   plate_number:
-#   taxi_desc:
-#   contact:
-#   time_lost: (datetime.. don't know which format rails like best)
-# }
       #POST /api/report_lost
       def report_lost
         begin
@@ -78,10 +56,15 @@ module Api
         item.item_name = params[:item_name]
         item.description = params[:item_desc]
         item.location = params[:location]
-        item.plate_no = params[:plate_number]
+        item.plate_no = params[:plate_no]
         item.taxi_description = params[:taxi_description]
         item.contact = params[:contact]
-        # item.when = DateTime.iso8601( params[:time_lost])
+
+        unless item.plate_no.nil?
+          taxi = Taxi.find_or_create_by(plate_no: item.plate_no)
+          item.taxi = taxi
+        end
+
         return item
       end
 
