@@ -6,7 +6,6 @@ module Api
       #GET /api/get_my_report
       def get_my_report
         if @user # provided by authenticate_user_from_token.
-
           render json:{success: true, data: {found_items: @user.found_items.as_json, lost_items: @user.lost_items.as_json}}
         else
           render json:{success: false}

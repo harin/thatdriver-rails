@@ -6,11 +6,16 @@ module Api
 
 
       def get_taxi
-        plate_no = params[:plate_no]
-        taxi = Taxi.find_or_create_by(plate_no: plate_no)
-        data = taxi.summary #taxi_json_with_ratings(taxi)
+        begin
+          plate_no = params[:plate_no]
+          taxi = Taxi.find_or_create_by(plate_no: plate_no)
+          data = taxi.summary #taxi_json_with_ratings(taxi)
 
-        render  json: {data:data, success:true}
+          render  json: {data:data, success:true}
+        rescue Exception => e
+          render  json:{success:true, message: e.to_s}
+        end
+
       end
 
       def rate_taxi
