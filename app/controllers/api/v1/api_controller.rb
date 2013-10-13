@@ -14,6 +14,21 @@ module Api
         end
       end
 
+      def register
+        begin
+          username = params[:username]
+          password = params[:password]
+          first_name = params[:first_name]
+          last_name = params[:last_name]
+          email = params[:email] if params.has_key?(:email)
+
+          user = User.create!(username: username, password:password, first_name: first_name, last_name:last_name, email:email)
+          render json: {success:true, auth_token: user.authentication_token }
+        rescue Exception => e
+          render json: {success:false, message:e.to_s}
+        end
+      end
+
       #helper methods
       private
       def authenticate_user_from_token!

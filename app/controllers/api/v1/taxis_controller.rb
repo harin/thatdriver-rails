@@ -34,10 +34,10 @@ module Api
       def ratings_summary
         begin
 
-          if params.has_key?(:amount)
-            return_amount = [params[:amount].to_i,20].min
+          if params.has_key?(:limit)
+            limit = [params[:limit].to_i,20].min
           else
-            return_amount = 5
+            limit = 5
           end
           taxis = Taxi.all
           #sort the taxi by the average rating method
@@ -46,13 +46,13 @@ module Api
           end
 
           #best and worst taxi 
-          highest_rated_taxis = sorted_by_rating.reverse.take(return_amount)
-          lowest_rated_taxis = sorted_by_rating.take(return_amount)
+          highest_rated_taxis = sorted_by_rating.reverse.take(limit)
+          lowest_rated_taxis = sorted_by_rating.take(limit)
 
           #most popular taxi = most rated
           most_popular_taxis = taxis.sort do |a,b|
             a.rates.count <=> b.rates.count
-          end.take(return_amount)
+          end.take(limit)
 
           #filter out unnecessary content
           filter = Proc.new do |taxi|

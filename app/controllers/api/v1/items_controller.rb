@@ -4,18 +4,55 @@ module Api
       respond_to :json
       before_filter :authenticate_user_from_token!
       #GET /api/get_my_report
-      def get_my_report
-        if @user # provided by authenticate_user_from_token.
-          render json:{success: true, data: {found_items: @user.found_items.as_json, lost_items: @user.lost_items.as_json}}
-        else
-          render json:{success: false}
+      def get_all_report
+        begin
+          items = Item.where(returned:false)
+          items.sort_by!(&:created_at).take(15)
+
+          #return
+          render json:{lost_and_found: items}      
+        rescue Exception => e
+          render json:{success:false, message: e.to_s}
         end
       end
+
+      def get_my_report
+        begin
+          if @user # provided by authenticate_user_from_token.
+          limit = 15
+
+          render json:{success: true, data: {found_items: @user.found_items.take(limit).as_json, lost_items: @user.lost_items.take(limit).as_json}}
+          else
+            render json:{success: false}
+          end
+        rescue Exception => e
+          render json:{success:false, message: e.to_s} 
+        end
+      end
+
+      #GET /api/v1/my_lost_and_found
+      def get_lost_and_found
+        begin
+          limit = 100
+
+          found_items = @user.found_items.take(limit)
+          lost_items = @user.lost_items.take(limit)
+
+          items = found_items + lost_items
+          items.sort_by(&:created_at).take(limit)
+
+          render json:{success: true, data: {lost_and_found: items}}
+        rescue Exception => e
+          render json:{success:false, message: e.to_s}
+        end
+      end
+
       #POST /api/report_lost
       def report_lost
         begin
           item = new_item_with_params params
           item.when = DateTime.iso8601( params[:time_lost])
+          item.type = 0
           lost = @user.losts.new(item: item)
 
 
@@ -35,6 +72,7 @@ module Api
         begin
           item = new_item_with_params params
           item.when = DateTime.iso8601( params[:time_found])
+          item.type = 1
           found = @user.founds.create(item: item)
 
           if item.save! && found.save!
@@ -44,7 +82,18 @@ module Api
           #clean up
           item.destroy unless item.nil?
           found.destroy unless found.nil?
-          render json:{success:true, message: e.to_s}
+          render json:{success:false, message: e.to_s}
+        end
+      end
+
+      def resolve_item
+        begin
+          item = Item.find(params[:item_id])
+          item.returned = true 
+          item.save!
+          render json:{success: true}      
+        rescue Exception => e
+          render json:{success:false, message: e.to_s}
         end
       end
 

@@ -22,3 +22,4 @@ class Item < ActiveRecord::Base
   end
 
 end
+#type: 1 (found) or 0 (lost)

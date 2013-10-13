@@ -9,11 +9,16 @@ ThatDriver::Application.routes.draw do
       post '/rate_taxi', to: 'taxis#rate_taxi'
 
       get '/myreports', to: 'items#get_my_report'
+      get '/my_lost_and_found', to:'items#get_lost_and_found'
+      get '/allreports', to: 'items#get_all_report'
 
       post '/report_lost', to: 'items#report_lost'
       post '/report_found', to: 'items#report_found'
+      post '/resolve_item', to: 'items#resolve_item'
 
       get '/ratings_summary', to: 'taxis#ratings_summary'
+
+      post '/register', to: 'api#register'
     end
   end
 
