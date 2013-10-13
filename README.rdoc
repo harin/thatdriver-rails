@@ -103,3 +103,60 @@ POST "/api/v1/report_found"
     contact: <contact>
     time_found: <iso8601 format e.g. "2001-02-03T04:05:06+07:00">
   }
+
+GET "/api/v1/ratings_summary?amount=<amount, default =5, max = 20"
+
+{
+success: true,
+data: {
+  highest_rated: [
+    {
+      id: 14,
+      plate_no: "ถม78",
+      owner: null,
+      color: null,
+      average_rating: 1
+    },
+    {
+      id: 13,
+      plate_no: "คร842",
+      owner: null,
+      color: null,
+      average_rating: 0.48
+    }
+  ],
+  lowest_rated: [
+    {
+      id: 18,
+      plate_no: "วฃ525",
+      owner: null,
+      color: null,
+      average_rating: -0.5
+    },
+    {
+      id: 25,
+      plate_no: "8บฏ58",
+      owner: null,
+      color: null,
+      average_rating: -0.5
+    }
+
+  ],
+  most_popular: [
+    {
+      id: 6,
+      plate_no: "8ตอ736",
+      owner: null,
+      color: null,
+      average_rating: 0
+    },
+    {
+      id: 14,
+      plate_no: "ถม78",
+      owner: null,
+      color: null,
+      average_rating: 1
+    }
+  ]
+  }
+}
