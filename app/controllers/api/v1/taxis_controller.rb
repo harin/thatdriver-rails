@@ -28,8 +28,47 @@ module Api
           puts "message->#{e.class}"
           render json: {success: false, message: e.to_s}
         end
+      end 
+
+
+      def ratings_summary
+        begin
+          taxis = Taxi.all
+          #sort the taxi by the average rating method
+          sorted_by_rating = taxis.sort do |a,b|
+            a.average_rating <=> b.average_rating
+          end
+
+          #best and worst taxi 
+          highest_rated_taxis = sorted_by_rating.reverse.take(10)
+          lowest_rated_taxis = sorted_by_rating.take(10)
+
+          #most popular taxi = most rated
+          most_popular_taxis = taxis.sort do |a,b|
+            a.rates.count <=> b.rates.count
+          end.take(10)
+
+          #filter out unnecessary content
+          filter = Proc.new do |taxi|
+            json = taxi.as_json(only:[:id, :plate_no, :owner, :color])
+            json[:average_rating] = taxi.average_rating
+            json
+          end
+
+          highest_rated_taxis.map! &filter
+          lowest_rated_taxis.map! &filter
+          most_popular_taxis.map! &filter
+
+          #return
+          render json:{success: true, data:{highest_rated: highest_rated_taxis, lowest_rated: lowest_rated_taxis, most_popular: most_popular_taxis}}
+        rescue Exception => e
+          render json: {success: false, message: e.to_s}
+        end
       end
-    
+
+      #end class
     end
+    #end module V1
   end
+  #end module Api
 end

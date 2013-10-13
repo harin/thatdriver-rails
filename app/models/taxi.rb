@@ -4,6 +4,20 @@ class Taxi < ActiveRecord::Base
   validates :plate_no, presence:true, uniqueness: true
 
 
+
+
+  def average_rating
+
+    ratings = self.rates.pluck(:rating) #find rating for this taxi and get only the rating column
+    if ratings.count > 0
+      sum = ratings.sum.to_f #sum the array
+      average =  (sum / ratings.count).round(3)
+    else
+      return 0
+    end
+
+  end
+
   def summary
     ratings = Rate.where(taxi_id: self.id)
     ratings_array = []
