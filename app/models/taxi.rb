@@ -1,13 +1,9 @@
 class Taxi < ActiveRecord::Base
   has_many :rates
   has_many :lost_items, class_name: "Item"
-  validates :plate_no, presence:true, uniqueness: true
-
-
-
+  validates :plate_no, presence:true, uniqueness: true, format:{with:/\d?[ก-ฮ][ก-ฮ]\d{1,4}/, message:"does not match plate number format 1aa1111"}
 
   def average_rating
-
     ratings = self.rates.pluck(:rating) #find rating for this taxi and get only the rating column
     if ratings.count > 0
       sum = ratings.sum.to_f #sum the array
