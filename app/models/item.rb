@@ -12,7 +12,7 @@ class Item < ActiveRecord::Base
 
 
   def has_lost_or_found_user
-    if self.item_type == 0 and self.loser or self.item_type == 1 and self.founder
+    if (self.item_type == 0 and self.loser) or (self.item_type == 1 and self.founder)
       #ok
     else
       #doesn't have Lost for type 0 or doesn't have Found for type 1

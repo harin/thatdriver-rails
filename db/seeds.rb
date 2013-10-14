@@ -59,6 +59,7 @@ end
 users = User.all
 taxis = Taxi.all
 users.each do |user|
+  puts "#{user.first_name}"
   #random lost items
   rand(4).times do
     item = Item.new
