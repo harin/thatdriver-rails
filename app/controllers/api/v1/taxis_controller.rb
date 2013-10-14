@@ -4,7 +4,6 @@ module Api
       respond_to :json
       before_filter :authenticate_user_from_token!, only:[:rate_taxi]
 
-
       def get_taxi
         begin
           plate_no = params[:plate_no]
