@@ -7,7 +7,7 @@ module Api
       def get_all_report
         begin
           items = Item.where(returned:false)
-          items.sort_by!(&:created_at).take(15)
+          items = items.sort_by!(&:created_at).take(15)
 
           #return
           render json:{lost_and_found: items}      
@@ -35,11 +35,11 @@ module Api
         begin
           limit = 100
 
-          found_items = @user.found_items.take(limit)
-          lost_items = @user.lost_items.take(limit)
+          found_items = @user.found_items
+          lost_items = @user.lost_items
 
           items = found_items + lost_items
-          items.sort_by(&:created_at).take(limit)
+          items = items.sort_by(&:created_at).take(limit)
 
           render json:{success: true, data: {lost_and_found: items}}
         rescue Exception => e
