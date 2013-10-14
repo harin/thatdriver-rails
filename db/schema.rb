@@ -11,41 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131013145046) do
+ActiveRecord::Schema.define(version: 20131014083405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "found_items", force: true do |t|
-    t.boolean  "returned"
-    t.string   "location"
-    t.datetime "when"
-    t.text     "description"
-    t.integer  "taxi_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "item_name"
-    t.string   "plate_no"
-    t.text     "taxi_description"
-    t.string   "contact"
-  end
-
-  create_table "founds", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "item_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "founds", ["item_id"], name: "index_founds_on_item_id", using: :btree
-  add_index "founds", ["user_id"], name: "index_founds_on_user_id", using: :btree
 
   create_table "items", force: true do |t|
     t.boolean  "returned"
     t.string   "location"
     t.datetime "when"
     t.text     "description"
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "item_name"
@@ -54,16 +29,13 @@ ActiveRecord::Schema.define(version: 20131013145046) do
     t.string   "contact"
     t.integer  "taxi_id"
     t.integer  "item_type"
+    t.integer  "loser_id"
+    t.integer  "founder_id"
   end
 
+  add_index "items", ["founder_id"], name: "index_items_on_founder_id", using: :btree
+  add_index "items", ["loser_id"], name: "index_items_on_loser_id", using: :btree
   add_index "items", ["taxi_id"], name: "index_items_on_taxi_id", using: :btree
-
-  create_table "losts", force: true do |t|
-    t.integer  "item_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "rates", force: true do |t|
     t.text     "comment"

@@ -68,15 +68,10 @@ users.each do |user|
     item.item_type = 0
     item.when = rand(10.years).ago.to_datetime
     item.description = Faker::Lorem.sentence(10)
-    
+    item.loser = user 
     lost = Lost.new
-    lost.user = user
-    lost.item = item
 
-    item.lost = lost
-    
     item.save!
-    lost.save!
   end
 
   #random found items
@@ -89,15 +84,9 @@ users.each do |user|
     item.when = rand(10.years).ago.to_datetime
     item.description = Faker::Lorem.sentence(10)
 
-    
-    found = Found.new
-    found.user = user
-    found.item = item
-
-    item.found = found
+    item.founder = user
 
     item.save!
-    found.save!
   end
 end
 

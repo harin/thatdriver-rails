@@ -1,12 +1,15 @@
 class Item < ActiveRecord::Base
   #associations
-  has_one :found
-  has_one :user, through: :found
+  # has_one :found
+  # has_one :user, through: :found
 
-  has_one :lost
-  has_one :user, through: :lost
+  # has_one :lost
+  # has_one :user, through: :lost
 
   belongs_to :taxi
+  belongs_to :founder, class_name: "User"
+  belongs_to :loser, class_name: "User"
+
 
   #validations
 
@@ -28,13 +31,13 @@ class Item < ActiveRecord::Base
     self.returned = false if (self.has_attribute? :returned) && self.returned.nil?
   end
 
-  def finder
-    self.found.user
-  end
+  # def finder
+  #   self.found.user
+  # end
 
-  def loser
-    self.lost.user
-  end
+  # def loser
+  #   self.lost.user
+  # end
 
 end
 #type: 1 (found) or 0 (lost)

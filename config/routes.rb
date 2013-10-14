@@ -5,20 +5,23 @@ ThatDriver::Application.routes.draw do
     namespace :v1 do
       #get token
       get '/get_token', to: 'api#get_token'
+      post '/register', to: 'api#register'
+
+      #taxi related APIs
       get '/get_taxi', to: 'taxis#get_taxi'
       post '/rate_taxi', to: 'taxis#rate_taxi'
-
+      get '/ratings_summary', to: 'taxis#ratings_summary'
+      
+      #item related APIs
       get '/myreports', to: 'items#get_my_report'
       get '/my_lost_and_found', to:'items#get_lost_and_found'
       get '/allreports', to: 'items#get_all_report'
-
       post '/report_lost', to: 'items#report_lost'
       post '/report_found', to: 'items#report_found'
       post '/resolve_item', to: 'items#resolve_item'
 
-      get '/ratings_summary', to: 'taxis#ratings_summary'
 
-      post '/register', to: 'api#register'
+
     end
   end
 

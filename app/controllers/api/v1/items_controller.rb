@@ -53,7 +53,7 @@ module Api
           item = new_item_with_params params
           item.when = DateTime.iso8601( params[:time_lost])
           item.type = 0
-          lost = @user.losts.new(item: item)
+          lost = @user.lost_items.new(item: item)
 
 
           if item.save! && lost.save!
@@ -73,9 +73,9 @@ module Api
           item = new_item_with_params params
           item.when = DateTime.iso8601( params[:time_found])
           item.type = 1
-          found = @user.founds.create(item: item)
+          found = @user.found_items.create!(item: item)
 
-          if item.save! && found.save!
+          if item.save! #&& found.save!
             render json:{success:true}
           end
         rescue Exception => e
