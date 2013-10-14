@@ -25,8 +25,7 @@ ThatDriver::Application.routes.draw do
 
   resources :found_items
 
-  resources :lost_items
-
+  resources :items
   resources :rates
 
   resources :taxis

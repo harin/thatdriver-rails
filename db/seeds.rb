@@ -39,8 +39,6 @@ thaiAlpha = ('ก'..'ฮ').to_a
       plate += (rand(9)+1).to_s
       no_digit -= 1
     end while no_digit >= 0
-    puts plate
-
     taxi.plate_no = plate
     if taxi.save
       break;
@@ -56,6 +54,53 @@ taxis.each do |taxi|
     taxi.rates.create(rating: rand(3)-1, user_id: user_ids.sample)
   end
 end
+
+#create random lost and found item
+users = User.all
+taxis = Taxi.all
+users.each do |user|
+  #random lost items
+  rand(4).times do
+    item = Item.new
+    item.location = Faker::Address.city
+    item.item_name = Faker::Name.suffix
+    item.taxi = taxis.sample
+    item.item_type = 0
+    item.when = rand(10.years).ago.to_datetime
+    item.description = Faker::Lorem.sentence(10)
+    
+    lost = Lost.new
+    lost.user = user
+    lost.item = item
+
+    item.lost = lost
+    
+    item.save!
+    lost.save!
+  end
+
+  #random found items
+   rand(4).times do
+    item = Item.new
+    item.location = Faker::Address.city
+    item.item_name = Faker::Name.suffix
+    item.taxi = taxis.sample
+    item.item_type = 1
+    item.when = rand(10.years).ago.to_datetime
+    item.description = Faker::Lorem.sentence(10)
+
+    
+    found = Found.new
+    found.user = user
+    found.item = item
+
+    item.found = found
+
+    item.save!
+    found.save!
+  end
+end
+
 
 
 

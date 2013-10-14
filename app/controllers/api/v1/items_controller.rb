@@ -85,7 +85,25 @@ module Api
           render json:{success:false, message: e.to_s}
         end
       end
+      def update_item
+        begin
+          item.item_name = params[:item_name]
+          item.description = params[:item_desc]
+          item.location = params[:location]
+          item.plate_no = params[:plate_no]
+          item.taxi_description = params[:taxi_description]
+          item.contact = params[:contact]
 
+          unless item.plate_no.nil?
+            taxi = Taxi.find_or_create_by(plate_no: item.plate_no)
+            item.taxi = taxi
+          end
+          render json:{success: true}
+        rescue Exception => e
+          render json:{success:false, message: e.to_s}
+        end
+
+      end
       def resolve_item
         begin
           item = Item.find(params[:item_id])

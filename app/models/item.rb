@@ -1,4 +1,5 @@
 class Item < ActiveRecord::Base
+  #associations
   has_one :found
   has_one :user, through: :found
 
@@ -7,9 +8,23 @@ class Item < ActiveRecord::Base
 
   belongs_to :taxi
 
+  #validations
+
   after_initialize :init
 
+  # validate :has_lost_or_found_user
+
+  def has_lost_or_found_user
+    if self.item_type == 0 and self.lost or self.item_type == 1 and self.found
+      #ok
+    else
+      #doesn't have Lost for type 0 or doesn't have Found for type 1
+      errors[:base] << ("Type 0 item must have lost user,Type 1 item must have found user")
+    end
+  end   
+
   def init
+    #set default for returned to be false
     self.returned = false if (self.has_attribute? :returned) && self.returned.nil?
   end
 
