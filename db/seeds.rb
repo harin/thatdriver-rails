@@ -69,7 +69,6 @@ users.each do |user|
     item.when = rand(10.years).ago.to_datetime
     item.description = Faker::Lorem.sentence(10)
     item.loser = user 
-    lost = Lost.new
 
     item.save!
   end
