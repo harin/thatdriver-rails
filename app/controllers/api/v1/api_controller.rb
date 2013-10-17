@@ -3,24 +3,31 @@ module Api
     class ApiController < ActionController::Base
 
       def get_token
-        username = params[:username]
-        password = params[:password]
-
-        user = User.find_by(username:username)
-        if user.valid_password?(password)
-          render json: {auth_token: user.authentication_token, success:true}
-        else
+        
+        begin
+          username = params[:username]
+          password = params[:password]
+          user = User.find_by(username:username)
+          if user.valid_password?(password)
+            render json: {auth_token: user.authentication_token, success:true}
+          else
+            raise # go to the rescue block
+          end
+        rescue
           render json: {success:false, message:'authentication failed'}, status: :unauthorized
         end
+
       end
 
       def register
         begin
+          puts params
+          
           username = params[:username]
           password = params[:password]
           first_name = params[:first_name]
           last_name = params[:last_name]
-          email = params[:email] if params.has_key?(:email)
+          email = params[:email]
 
           user = User.create!(username: username, password:password, first_name: first_name, last_name:last_name, email:email)
           render json: {success:true, auth_token: user.authentication_token }

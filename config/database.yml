@@ -48,7 +48,7 @@ test:
   encoding: unicode
   database: ThatDriver_test
   pool: 5
-  username: ThatDriver
+  username: harinsanghirun 
   password:
 
 production:
@@ -56,5 +56,5 @@ production:
   encoding: unicode
   database: ThatDriver_production
   pool: 5
-  username: ThatDriver
+  username: harinsanghirun
   password:
