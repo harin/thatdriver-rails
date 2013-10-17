@@ -53,16 +53,15 @@ module Api
           item = new_item_with_params params
           item.when = DateTime.iso8601( params[:time_lost])
           item.item_type = 0
-          lost = @user.lost_items.new(item: item)
+          @user.lost_items << item
 
 
-          if item.save! && lost.save!
+          if item.save!
             render json:{success:true}
           end
         rescue Exception => e
           #clean up if something fails
           item.destroy unless item.nil?
-          lost.destroy unless lost.nil?
           render json:{success:false, message: e.to_s}
         end
       end
@@ -73,15 +72,14 @@ module Api
           item = new_item_with_params params
           item.when = DateTime.iso8601( params[:time_found])
           item.item_type = 1
-          found = @user.found_items.create!(item: item)
+          @user.found_items << item
 
-          if item.save! #&& found.save!
+          if item.save!
             render json:{success:true}
           end
         rescue Exception => e
           #clean up
           item.destroy unless item.nil?
-          found.destroy unless found.nil?
           render json:{success:false, message: e.to_s}
         end
       end
