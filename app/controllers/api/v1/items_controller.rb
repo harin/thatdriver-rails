@@ -87,12 +87,12 @@ module Api
       end
       def update_item
         begin
-          item.item_name = params[:item_name]
-          item.description = params[:item_desc]
-          item.location = params[:location]
-          item.plate_no = params[:plate_no]
-          item.taxi_description = params[:taxi_description]
-          item.contact = params[:contact]
+          item.item_name = params[:item_name] if params.has_key?(:item_name)
+          item.description = params[:item_desc] if params.has_key?(:item_desc)
+          item.location = params[:location] if params.has_key?(:location)
+          item.plate_no = params[:plate_no] if params.has_key?(:plate_no)
+          item.taxi_description = params[:taxi_description] if params.has_key? :taxi_description
+          item.contact = params[:contact] if params.has_key? :contact
 
           unless item.plate_no.nil?
             taxi = Taxi.find_or_create_by(plate_no: item.plate_no)

@@ -29,5 +29,18 @@ describe "basic API" do
     expect(json['auth_token']).to eq(new_user.authentication_token)
   end
 
+  it 'should not allow user to register the same username' do 
+    params = FactoryGirl.attributes_for(:user, first_name:'Ed', last_name:'Edd')
+    post '/api/v1/register', params
+    #test 200 status code
+
+    expect(response).to be_success
+
+    #response success should be false
+    json = JSON.parse(response.body)
+
+    (json['success']).should be_false
+  end
+
 
 end
