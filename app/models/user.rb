@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  validates :username, uniqueness: true
+
 # authentication methods
   def ensure_authentication_token
     if authentication_token.blank?
