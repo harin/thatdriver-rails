@@ -20,6 +20,7 @@ ThatDriver::Application.routes.draw do
       post '/report_found', to: 'items#report_found'
       post '/resolve_item', to: 'items#resolve_item'
       post '/update_item', to: 'items#update_item'
+      post '/delete_item', to: 'items#delete_item'
     end
   end
 

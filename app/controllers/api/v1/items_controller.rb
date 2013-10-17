@@ -52,7 +52,7 @@ module Api
         begin
           item = new_item_with_params params
           item.when = DateTime.iso8601( params[:time_lost])
-          item.type = 0
+          item.item_type = 0
           lost = @user.lost_items.new(item: item)
 
 
@@ -72,7 +72,7 @@ module Api
         begin
           item = new_item_with_params params
           item.when = DateTime.iso8601( params[:time_found])
-          item.type = 1
+          item.item_type = 1
           found = @user.found_items.create!(item: item)
 
           if item.save! #&& found.save!
@@ -107,12 +107,24 @@ module Api
       def resolve_item
         begin
           item = Item.find(params[:item_id])
-          item.returned = true 
+          item.returned = true
           item.save!
           render json:{success: true}      
         rescue Exception => e
           render json:{success:false, message: e.to_s}
         end
+      end
+
+      def delete_item
+        begin
+          item = Item.find(params[:item_id])
+          item.destroy!
+          render json: {success: true}
+        rescue Exception => e
+          render json: {sucess: false, message: e.to_s}
+          
+        end
+
       end
 
       private
