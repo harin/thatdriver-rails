@@ -28,9 +28,10 @@ module Api
           first_name = params[:first_name]
           last_name = params[:last_name]
           email = params[:email]
+          phone = params[:phone].gsub(/\s/,'') if params.has_key? :phone
 
-          user = User.create!(username: username, password:password, first_name: first_name, last_name:last_name, email:email)
-          render json: {success:true, auth_token: user.authentication_token }
+          user = User.create!(username: username, password:password, first_name: first_name, last_name:last_name, email:email, phone:phone)
+          render json: {success:true, auth_token: user.authentication_token, first_name: first_name, last_name: last_name, email:email , phone:phone}
         rescue Exception => e
           render json: {success:false, message:e.to_s}
         end

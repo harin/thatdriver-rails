@@ -5,8 +5,8 @@ class Item < ActiveRecord::Base
   belongs_to :loser, class_name: "User"
 
   #validations
-  validates :item_type, inclusion: [1,0]
-  validate :has_lost_or_found_user
+  # validates :item_type, inclusion: [1,0]
+  # validate :has_lost_or_found_user
 
   after_initialize :init
 
@@ -23,6 +23,7 @@ class Item < ActiveRecord::Base
   def init
     #set default for returned to be false
     self.returned = false if (self.has_attribute? :returned) && self.returned.nil?
+    self.item_type = 0 if (self.has_attribute? :item_type) && self.item_type.nil?
   end
 
 

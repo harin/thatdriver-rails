@@ -55,40 +55,40 @@ taxis.each do |taxi|
   end
 end
 
-#create random lost and found item
-users = User.all
-taxis = Taxi.all
-users.each do |user|
-  puts "#{user.first_name}"
-  #random lost items
-  rand(4).times do
-    item = Item.new
-    item.location = Faker::Address.city
-    item.item_name = Faker::Name.suffix
-    item.taxi = taxis.sample
-    item.item_type = 0
-    item.when = rand(10.years).ago.to_datetime
-    item.description = Faker::Lorem.sentence(10)
-    item.loser = user 
+# #create random lost and found item
+# users = User.all
+# taxis = Taxi.all
+# users.each do |user|
+#   puts "#{user.first_name}"
+#   #random lost items
+#   rand(4).times do
+#     item = Item.new
+#     item.location = Faker::Address.city
+#     item.item_name = Faker::Name.suffix
+#     item.taxi = taxis.sample
+#     item.item_type = 0
+#     item.when = rand(10.years).ago.to_datetime
+#     item.description = Faker::Lorem.sentence(10)
+#     item.loser = user 
 
-    item.save!
-  end
+#     item.save!
+#   end
 
-  #random found items
-   rand(4).times do
-    item = Item.new
-    item.location = Faker::Address.city
-    item.item_name = Faker::Name.suffix
-    item.taxi = taxis.sample
-    item.item_type = 1
-    item.when = rand(10.years).ago.to_datetime
-    item.description = Faker::Lorem.sentence(10)
+#   #random found items
+#    rand(4).times do
+#     item = Item.new
+#     item.location = Faker::Address.city
+#     item.item_name = Faker::Name.suffix
+#     item.taxi = taxis.sample
+#     item.item_type = 1
+#     item.when = rand(10.years).ago.to_datetime
+#     item.description = Faker::Lorem.sentence(10)
 
-    item.founder = user
+#     item.founder = user
 
-    item.save!
-  end
-end
+#     item.save!
+#   end
+# end
 
 
 
