@@ -5,12 +5,12 @@ module Api
       # before_filter :authenticate_user_from_token!
       #GET /api/allreports
       def get_all_report
-        limit = 3
+        limit = 15
         begin
           if params.has_key? :last_timestamp
             from_time = Time.at(params[:last_timestamp].to_i).to_datetime
 
-            items = Item.order('updated_at DESC').where("updated_at <= ?",from_time).limit(limit)
+            items = Item.order('updated_at DESC').where("updated_at < ?",from_time).limit(limit)
  
           else 
             items = Item.where(returned:false).order('updated_at DESC').limit(limit)
