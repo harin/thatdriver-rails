@@ -1,8 +1,44 @@
+all routes (/api/v1)
+
+      get '/get_token'
+      post '/register'
+
+      #taxi related APIs
+      get '/get_taxi'
+      post '/rate_taxi'
+      get '/ratings_summary'
+
+      #item related APIs
+      get '/myreports'
+      get '/my_lost_and_found'
+      get '/allreports'
+      post '/report_lost'
+      post '/report_found'
+      post '/resolve_item'
+      post '/update_item'
+      post '/delete_item'
+
+======
+
 GET "/api/v1/get_token?username=<username>&password=<password>"
   {
     auth_token: "YhzNCqUE4g4K4A9x4Rve",
     success: true
   }
+
+POST '/api/v1/register'
+  form-data
+  {
+    username: <username>
+    plate_no: <plate_no>
+    first_name: <first_name> optional
+    last_name: <last_name> optional
+    email: <email> optional
+    phone: <phone> optional
+  }
+  response
+  auth_token
+
 
 GET "/api/v1/get_taxi?plate_no=<plate_no>"
   {
@@ -79,60 +115,8 @@ GET "/api/v1/myreports?auth_token=<auth_token>"
         ]
         }
   }
-get '/api/v1/allreports'
-- all recent reports
-get '/api/v1/my_lost_and_found'
-- report the user has made
-  {
-    success: true,
-    data: {
-      lost_and_found: [
-        {
-        id: 3,
-        returned: false,
-        location: "here",
-        when: "2001-02-02T21:05:06.000Z",
-        description: null,
-        user_id: null,
-        created_at: "2013-10-08T09:34:14.000Z",
-        updated_at: "2013-10-08T09:34:14.000Z",
-        item_name: "aaaaaaaaaaá",
-        plate_no: "สย1234",
-        taxi_description: "adsfasdf",
-        contact: "adsfasdf",
-        taxi_id: 1,
-        item_type: null
-        }, ...
-      ]
-    }
-  }
 
-
-POST "/api/v1/report_lost"
-  form-data
-  {
-    auth_token: <auth_token>
-    item_name: <item_name>
-    location: <location>
-    plate_no: <plate_no>
-    taxi_description: <description>
-    contact: <contact>
-    time_lost: <iso8601 format e.g. "2001-02-03T04:05:06+07:00">
-  }
-
-POST "/api/v1/report_found"
-  form-data
-  {
-    auth_token: <auth_token>
-    item_name: <item_name>
-    location: <location>
-    plate_no: <plate_no>
-    taxi_description: <description>
-    contact: <contact>
-    time_found: <iso8601 format e.g. "2001-02-03T04:05:06+07:00">
-  }
-
-GET "/api/v1/ratings_summary?limit=<limit, default =5, max = 20">
+GET "/api/v1/ratings_summary?limit=<limit, default =5, max = 20>
 
   {
   success: true,
@@ -187,15 +171,92 @@ GET "/api/v1/ratings_summary?limit=<limit, default =5, max = 20">
       }
     ]
     }
-  
-POST '/api/v1/register'
+  }
+
+GET '/api/v1/myreports'
+- all report made by user
+
+GET '/api/v1/my_lost_and_found'
+- all lost and found by user, mixed together
+
+GET '/api/v1/allreports'
+- all recent reports
+
+GET '/api/v1/allreports?last_timestamp=<last_timestamp>'
+- report before last_timestamp
+
+get '/api/v1/my_lost_and_found'
+- report the user has made
+  {
+    success: true,
+    data: {
+      lost_and_found: [
+        {
+        id: 3,
+        returned: false,
+        location: "here",
+        when: "2001-02-02T21:05:06.000Z",
+        description: null,
+        user_id: null,
+        created_at: "2013-10-08T09:34:14.000Z",
+        updated_at: "2013-10-08T09:34:14.000Z",
+        item_name: "aaaaaaaaaaá",
+        plate_no: "สย1234",
+        taxi_description: "adsfasdf",
+        contact: "adsfasdf",
+        taxi_id: 1,
+        item_type: null
+        }, ...
+      ]
+    }
+  }
+
+
+POST "/api/v1/report_lost"
   form-data
   {
-    username: <username>
+    auth_token: <auth_token>
+    item_name: <item_name>
+    location: <location>
     plate_no: <plate_no>
-    first_name: <first_name>
-    last_name: <last_name>
-    email: <email> 
+    taxi_description: <description>
+    contact: <contact>
+    time_lost: <iso8601 format e.g. "2001-02-03T04:05:06+07:00">
   }
-  response
-  auth_token
+
+POST "/api/v1/report_found"
+  form-data
+  {
+    auth_token: <auth_token>
+    item_name: <item_name>
+    location: <location>
+    plate_no: <plate_no>
+    taxi_description: <description>
+    contact: <contact>
+    time_found: <iso8601 format e.g. "2001-02-03T04:05:06+07:00">
+  }
+
+POST "/api/v1/resolve_item"
+
+  form-data
+  {
+    item_id: <item_id e.g. 1>
+  }
+
+POST "/api/v1/update_item"
+
+  form-data
+  available keys - 
+    -item_name
+    -item_desc
+    -location
+    -plate_nom
+    -taxi_description
+    -contact
+
+POST "/api/v1/delete_item"
+-anyone can delete anyone's item right now
+form-data
+{
+  item_id: <item_id e.g. 1>
+}
