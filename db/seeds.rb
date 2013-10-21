@@ -51,44 +51,45 @@ taxis =Taxi.all
 user_ids = User.all.pluck(:id)
 taxis.each do |taxi|
   rand(50).times do
-    taxi.rates.create(rating: rand(3)-1, user_id: user_ids.sample)
+    taxi.rates.create(rating: rand(3)-1, user_id: user_ids.sample, updated_at: DateTime.now + rand(100), comment:Faker::Lorem.sentence(5))
   end
 end
 
-# #create random lost and found item
-# users = User.all
-# taxis = Taxi.all
-# users.each do |user|
-#   puts "#{user.first_name}"
-#   #random lost items
-#   rand(4).times do
-#     item = Item.new
-#     item.location = Faker::Address.city
-#     item.item_name = Faker::Name.suffix
-#     item.taxi = taxis.sample
-#     item.item_type = 0
-#     item.when = rand(10.years).ago.to_datetime
-#     item.description = Faker::Lorem.sentence(10)
-#     item.loser = user 
+#create random lost and found item
+users = User.all
+taxis = Taxi.all
+users.each do |user|
+  puts "#{user.first_name}"
+  #random lost items
+  rand(4).times do
+    item = Item.new
+    item.location = Faker::Address.city
+    item.item_name = Faker::Name.suffix
+    item.taxi = taxis.sample
+    item.item_type = 0
+    item.when = rand(10.years).ago.to_datetime
+    item.description = Faker::Lorem.sentence(10)
+    item.loser = user 
+    item.updated_at = DateTime.now + rand(100)
+    item.save!
+  end
 
-#     item.save!
-#   end
+  #random found items
+   rand(4).times do
+    item = Item.new
+    item.location = Faker::Address.city
+    item.item_name = Faker::Name.suffix
+    item.taxi = taxis.sample
+    item.item_type = 1
+    item.when = rand(10.years).ago.to_datetime
+    item.description = Faker::Lorem.sentence(10)
+    item.updated_at = DateTime.now + rand(100)
 
-#   #random found items
-#    rand(4).times do
-#     item = Item.new
-#     item.location = Faker::Address.city
-#     item.item_name = Faker::Name.suffix
-#     item.taxi = taxis.sample
-#     item.item_type = 1
-#     item.when = rand(10.years).ago.to_datetime
-#     item.description = Faker::Lorem.sentence(10)
+    item.founder = user
 
-#     item.founder = user
-
-#     item.save!
-#   end
-# end
+    item.save!
+  end
+end
 
 
 

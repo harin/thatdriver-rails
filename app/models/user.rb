@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   before_save :ensure_authentication_token
 
+  has_many :rates
   has_many :found_items, class_name: "Item", foreign_key: 'founder_id'
   has_many :lost_items, class_name: "Item", foreign_key: 'loser_id'
   # Include default devise modules. Others available are:

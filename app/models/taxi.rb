@@ -14,8 +14,8 @@ class Taxi < ActiveRecord::Base
 
   end
 
-  def summary
-    ratings = Rate.where(taxi_id: self.id)
+  def summary(limit = 10)
+    ratings = self.rates.order("updated_at DESC")
     ratings_array = []
 
     likes = 0
@@ -24,7 +24,7 @@ class Taxi < ActiveRecord::Base
     ratings.each do |rate|
       rate_hash = {
         comment:rate.comment,
-        timestamp:rate.created_at.to_i, 
+        timestamp:rate.updated_at.to_i, 
         rating:rate.rating
       }
       ratings_array << rate_hash
@@ -37,7 +37,7 @@ class Taxi < ActiveRecord::Base
     end
 
     data = {}
-    data[:ratings] = ratings_array.take(10) # limit to 10 ratings
+    data[:ratings] = ratings_array.take(limit) # limit to 10 ratings
     data[:likes] = likes
     data[:dislikes] = dislikes
     data[:neutral] = neutral
