@@ -4,6 +4,8 @@ module Api
       respond_to :json
       before_filter :authenticate_user_from_token!, only:[:rate_taxi]
 
+      # GET /get_taxi
+      # find or create a new taxi from the plate_no
       def get_taxi
         begin
           plate_no = params[:plate_no]
@@ -12,9 +14,36 @@ module Api
 
           render  json: {data:data, success:true}
         rescue Exception => e
-          render  json:{success:true, message: e.to_s}
+          render  json:{success:false, message: e.to_s}
         end
 
+      end
+
+      # GET /api/v1/get_ratings
+      # params - plate_no, last_timestamp(optional)
+      def get_ratings
+        begin
+          plate_no = params[:plate_no]
+          taxi = Taxi.find_by!(plate_no: plate_no)
+          if params.has_key? :last_timestamp
+            #convert unix time to datetime object
+            last_timestamp = Time.at(params[:last_timestamp].to_i).to_datetime
+
+            rates = taxi.rates.where("updated_at < ?", last_timestamp).order("updated_at DESC").limit(10)
+          else
+            rates = taxi.rates.order("updated_at DESC").limit(10)
+          end
+
+          rates = rates.map do |rate|
+            {comment:rate.comment,
+              timestamp:rate.updated_at.to_i,
+              rating: rate.rating}
+          end
+
+          render json:{success:true, data:rates}
+        rescue Exception => e
+          render  json:{success:false, message: e.to_s}
+        end
       end
 
       def rate_taxi

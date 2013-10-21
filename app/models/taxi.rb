@@ -37,7 +37,7 @@ class Taxi < ActiveRecord::Base
     end
 
     data = {}
-    data[:ratings] = ratings_array
+    data[:ratings] = ratings_array.take(10) # limit to 10 ratings
     data[:likes] = likes
     data[:dislikes] = dislikes
     data[:neutral] = neutral

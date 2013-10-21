@@ -11,6 +11,7 @@ ThatDriver::Application.routes.draw do
       get '/get_taxi', to: 'taxis#get_taxi'
       post '/rate_taxi', to: 'taxis#rate_taxi'
       get '/ratings_summary', to: 'taxis#ratings_summary'
+      get '/get_ratings', to: 'taxis#get_ratings'
 
       #item related APIs
       get '/myreports', to: 'items#get_my_report'
