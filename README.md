@@ -7,6 +7,7 @@ all routes (/api/v1)
       get '/get_taxi'
       post '/rate_taxi'
       get '/ratings_summary'
+      get '/get_ratings'
 
       #item related APIs
       get '/myreports'
@@ -43,6 +44,8 @@ POST '/api/v1/register'
 
 
 GET "/api/v1/get_taxi?plate_no=<plate_no>"
+
+-ratings limited to 10
 
     {
       data: {
@@ -177,6 +180,23 @@ GET "/api/v1/ratings_summary?limit=<limit, default =5, max = 20>
       ]
       }
     }
+
+GET '/api/v1/get_ratings?plate_no=<plate_no>&last_timestamp=<last_timestamp (optional)>'
+
+- return ratings before time 'last_timestamp' or 10 latest ratings
+
+    {
+      success: true,
+      data: [
+        {
+          comment: "heyhey",
+          timestamp: 1382355186,
+          rating: 0
+        },
+        ...
+      ]
+    }
+
 
 GET '/api/v1/myreports'
 
