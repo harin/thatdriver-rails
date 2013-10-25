@@ -9,7 +9,9 @@ class Item < ActiveRecord::Base
   # validate :has_lost_or_found_user
 
   after_initialize :init
-
+  def self.active_items
+    Item.where(returned:false)
+  end
 
   def has_lost_or_found_user
     if (self.item_type == 0 and self.loser) or (self.item_type == 1 and self.founder)

@@ -10,10 +10,10 @@ module Api
           if params.has_key? :last_timestamp
             from_time = Time.at(params[:last_timestamp].to_i).to_datetime
 
-            items = Item.order('updated_at DESC').where("updated_at < ?",from_time).limit(limit)
+            items = Item.active_items.order('updated_at DESC').where("updated_at < ?",from_time).limit(limit)
  
           else 
-            items = Item.where(returned:false).order('updated_at DESC').limit(limit)
+            items = Item.active_items.order('updated_at DESC').limit(limit)
           end
           #return
           render json:{lost_and_found: items.take(limit), last_timestamp: items.last.updated_at.to_i}      
