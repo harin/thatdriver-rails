@@ -16,7 +16,6 @@ module Api
         rescue Exception => e
           render  json:{success:false, message: e.to_s}
         end
-
       end
 
       # GET /api/v1/get_ratings
@@ -25,11 +24,11 @@ module Api
         begin
           plate_no = params[:plate_no]
           taxi = Taxi.find_by!(plate_no: plate_no)
-          if params.has_key? :last_timestamp
+          if params.has_key? :last_iso_timestamp
             #convert unix time to datetime object
-            last_timestamp = Time.at(params[:last_timestamp].to_i).to_datetime
+            last_iso_timestamp = DateTime.iso8601(params[:last_iso_timestamp].to_i)
 
-            rates = taxi.rates.where("updated_at < ?", last_timestamp).order("updated_at DESC").limit(10)
+            rates = taxi.rates.where("updated_at < ?", last_iso_timestamp).order("updated_at DESC").limit(10)
           else
             rates = taxi.rates.order("updated_at DESC").limit(10)
           end
