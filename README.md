@@ -198,19 +198,19 @@ GET '/api/v1/get_ratings?plate_no=<plate_no>&last_timestamp=<last_timestamp (opt
     }
 
 
-GET '/api/v1/myreports'
+GET '/api/v1/myreports?auth_token='
 
 - all report made by user
 
-GET '/api/v1/my_lost_and_found'
+GET '/api/v1/my_lost_and_found?auth_token='
 
 - all lost and found by user, mixed together
 
-GET '/api/v1/allreports'
+GET '/api/v1/allreports?auth_token=&last_iso_timestamp='
 
 - all recent reports
 
-GET '/api/v1/allreports?last_timestamp=<last_timestamp>'
+GET '/api/v1/allreports?last_timestamp=\<last_timestamp\>'
 
 - report before last_timestamp
 
