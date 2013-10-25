@@ -21,7 +21,7 @@ all routes (/api/v1)
 
 ======
 
-GET "/api/v1/get_token?username=<username>&password=<password>"
+GET "/api/v1/get_token?username=\<username\>&password=\<password\>"
 
     {
       auth_token: "YhzNCqUE4g4K4A9x4Rve",
@@ -32,18 +32,18 @@ POST '/api/v1/register'
 
     form-data
     {
-      username: <username>
-      plate_no: <plate_no>
-      first_name: <first_name> optional
-      last_name: <last_name> optional
-      email: <email> optional
-      phone: <phone> optional
+      username: \<username\>
+      plate_no: \<plate_no\>
+      first_name: \<first_name\> optional
+      last_name: \<last_name\> optional
+      email: \<email\> optional
+      phone: \<phone\> optional
     }
     response
     auth_token
 
 
-GET "/api/v1/get_taxi?plate_no=<plate_no>"
+GET "/api/v1/get_taxi?plate_no=\<plate_no\>"
 
 -ratings limited to 10
 
@@ -76,13 +76,13 @@ POST "/api/v1/rate_taxi"
 
     form-data
     {
-      auth_token: <auth_token>
-      plate_no: <plate_no>
-      comment: <comment>
-      vote: <-1,0,1>
+      auth_token: \<auth_token\>
+      plate_no: \<plate_no\>
+      comment: \<comment\>
+      vote: \<-1,0,1\>
     }
 
-GET "/api/v1/myreports?auth_token=<auth_token>"
+GET "/api/v1/myreports?auth_token=\<auth_token\>"
 
     {
     success: true,
@@ -124,7 +124,7 @@ GET "/api/v1/myreports?auth_token=<auth_token>"
           }
     }
 
-GET "/api/v1/ratings_summary?limit=<limit, default =5, max = 20>
+GET "/api/v1/ratings_summary?limit=\<limit, default =5, max = 20\>
 
     {
     success: true,
@@ -181,7 +181,7 @@ GET "/api/v1/ratings_summary?limit=<limit, default =5, max = 20>
       }
     }
 
-GET '/api/v1/get_ratings?plate_no=<plate_no>&last_timestamp=<last_timestamp (optional)>'
+GET '/api/v1/get_ratings?plate_no=\<plate_no\>&last_timestamp=\<last_timestamp (optional)\>'
 
 - return ratings before time 'last_timestamp' or 10 latest ratings
 
@@ -206,11 +206,11 @@ GET '/api/v1/my_lost_and_found?auth_token='
 
 - all lost and found by user, mixed together
 
-GET '/api/v1/allreports?auth_token=&last_iso_timestamp='
+GET '/api/v1/allreports'
 
 - all recent reports
 
-GET '/api/v1/allreports?last_timestamp=\<last_timestamp\>'
+GET '/api/v1/allreports?last_iso_timestamp=\<last_iso_timestamp\>'
 
 - report before last_timestamp
 
@@ -247,33 +247,33 @@ POST "/api/v1/report_lost"
 
     form-data
     {
-      auth_token: <auth_token>
-      item_name: <item_name>
-      location: <location>
-      plate_no: <plate_no>
-      taxi_description: <description>
-      contact: <contact>
-      time_lost: <iso8601 format e.g. "2001-02-03T04:05:06+07:00">
+      auth_token: \<auth_token\>
+      item_name: \<item_name\>
+      location: \<location\>
+      plate_no: \<plate_no\>
+      taxi_description: \<description\>
+      contact: \<contact\>
+      time_lost: \<iso8601 format e.g. "2001-02-03T04:05:06+07:00"\>
     }
 
 POST "/api/v1/report_found"
 
     form-data
     {
-      auth_token: <auth_token>
-      item_name: <item_name>
-      location: <location>
-      plate_no: <plate_no>
-      taxi_description: <description>
-      contact: <contact>
-      time_found: <iso8601 format e.g. "2001-02-03T04:05:06+07:00">
+      auth_token: \<auth_token\>
+      item_name: \<item_name\>
+      location: \<location\>
+      plate_no: \<plate_no\>
+      taxi_description: \<description\>
+      contact: \<contact\>
+      time_found: \<iso8601 format e.g. "2001-02-03T04:05:06+07:00"\>
     }
 
 POST "/api/v1/resolve_item"
 
     form-data
     {
-      item_id: <item_id e.g. 1>
+      item_id: \<item_id e.g. 1\>
     }
 
 POST "/api/v1/update_item"
@@ -293,5 +293,5 @@ POST "/api/v1/delete_item"
 
     form-data
     {
-      item_id: <item_id e.g. 1>
+      item_id: \<item_id e.g. 1\>
     }
