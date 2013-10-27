@@ -17,7 +17,17 @@ class User < ActiveRecord::Base
       self.authentication_token = generate_authentication_token
     end
   end
- 
+  
+  def summary
+    {
+      username:self.username,
+      first_name: self.first_name,
+      last_name: self.last_name,
+      email: self.email,
+      phone: self.phone
+    }
+  end
+  
   private
   
   def generate_authentication_token
@@ -34,5 +44,7 @@ class User < ActiveRecord::Base
   def email_changed?
     false
   end
+
+
   
 end

@@ -9,11 +9,12 @@ module Api
           password = params[:password]
           user = User.find_by(username:username)
           if user.valid_password?(password)
-            render json: {auth_token: user.authentication_token, success:true}
+            render json: {auth_token: user.authentication_token, success:true, user: user.summary}
           else
             raise # go to the rescue block
           end
-        rescue
+        rescue Exception =>e
+          puts e
           render json: {success:false, message:'authentication failed'}, status: :unauthorized
         end
 
@@ -43,7 +44,7 @@ module Api
 
           user.save!
 
-          render json: {success:true, auth_token: user.authentication_token, first_name: user.first_name, last_name: user.last_name, email:user.email , phone:user.phone}
+          render json: {success:true, auth_token: user.authentication_token, first_name: user.first_name, last_name: user.last_name, email:user.email , phone:user.phone, username:user.username}
         rescue Exception => e
           render json: {success:false, message:e.to_s}
         end
