@@ -2,7 +2,7 @@ module Api
   module V1
     class ItemsController < ApiController
       respond_to :json
-      # before_filter :authenticate_user_from_token!
+      before_filter :authenticate_user_from_token!
       #GET /api/allreports
       # params - last_iso_timestamp, auth_token
       def get_all_report

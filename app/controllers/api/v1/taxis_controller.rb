@@ -49,7 +49,14 @@ module Api
       def rate_taxi
         plate_no = params[:plate_no]
         begin
+          
+
+
           taxi = Taxi.find_or_create_by(plate_no: plate_no)
+          
+          #check if rated in the same taxi in the last 24 hours
+          last_rated = @user.rates.where(taxi_id:taxi.id).pluck(:updated_at).max
+
           taxi.rates.create!(comment: params[:comment], rating: params[:vote], user_id:@user.id)
           render json: {success: true}
         rescue Exception => e
