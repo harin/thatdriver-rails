@@ -27,7 +27,7 @@ module Api
           taxi = Taxi.find_by!(plate_no: plate_no)
           if params.has_key? :last_timestamp
             #convert unix time to datetime object
-            last_timestamp = Time.at(params[:last_timestamp]).to_datetime
+            last_timestamp = Time.at(params[:last_timestamp].to_i).to_datetime
 
             rates = taxi.rates.where("updated_at < ?", last_timestamp).order("updated_at DESC").limit(10)
           else
