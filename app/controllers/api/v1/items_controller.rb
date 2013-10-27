@@ -89,8 +89,11 @@ module Api
           render json:{success:false, message: e.to_s}
         end
       end
+
       def update_item
         begin
+          item = item.find(params[:item_id])
+
           item.item_name = params[:item_name] if params.has_key?(:item_name)
           item.description = params[:item_desc] if params.has_key?(:item_desc)
           item.location = params[:location] if params.has_key?(:location)

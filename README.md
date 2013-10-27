@@ -279,11 +279,11 @@ POST "/api/v1/update_item"
 
     form-data
     available keys - 
-
+    - item_id (required)
     - item_name
     - item_desc
     - location
-    - plate_nom
+    - plate_no
     - taxi_description
     - contact
 
