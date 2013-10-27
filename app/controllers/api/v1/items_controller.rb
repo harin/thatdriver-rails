@@ -2,21 +2,21 @@ module Api
   module V1
     class ItemsController < ApiController
       respond_to :json
-      before_filter :authenticate_user_from_token!
+      # before_filter :authenticate_user_from_token!
       #GET /api/allreports
+      # params - last_iso_timestamp, auth_token
       def get_all_report
         limit = 15
         begin
-          if params.has_key? :last_timestamp
-            from_time = Time.at(params[:last_timestamp].to_i).to_datetime
+          if params.has_key? :last_iso_timestamp
+            from_time = DateTime.iso8601 params[:last_iso_timestamp]
 
             items = Item.active_items.order('updated_at DESC').where("updated_at < ?",from_time).limit(limit)
- 
           else 
             items = Item.active_items.order('updated_at DESC').limit(limit)
           end
           #return
-          render json:{lost_and_found: items.take(limit), last_timestamp: items.last.updated_at.to_i}      
+          render json:{success:true, lost_and_found: items.take(limit)}      
         rescue Exception => e
           render json:{success:false, message: e.to_s}
         end

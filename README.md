@@ -7,18 +7,17 @@ all routes (/api/v1)
       get '/get_taxi'
       post '/rate_taxi'
       get '/ratings_summary'
-      get '/get_ratings'
+      get '/get_ratings' (last_timestamp)
 
       #item related APIs
       get '/myreports'
       get '/my_lost_and_found'
-      get '/allreports'
+      get '/allreports' (last_iso_timestamp)
       post '/report_lost'
       post '/report_found'
       post '/resolve_item'
       post '/update_item'
       post '/delete_item'
-
 ======
 
 GET "/api/v1/get_token?username=\<username\>&password=\<password\>"

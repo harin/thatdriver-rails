@@ -19,16 +19,17 @@ module Api
       end
 
       # GET /api/v1/get_ratings
-      # params - plate_no, last_timestamp(optional)
+      # return the ratings of a specific taxi
+      # params - plate_no, last_iso_timestamp(optional)
       def get_ratings
         begin
           plate_no = params[:plate_no]
           taxi = Taxi.find_by!(plate_no: plate_no)
-          if params.has_key? :last_iso_timestamp
+          if params.has_key? :last_timestamp
             #convert unix time to datetime object
-            last_iso_timestamp = DateTime.iso8601(params[:last_iso_timestamp].to_i)
+            last_timestamp = DateTime.iso8601(params[:last_timestamp].to_i)
 
-            rates = taxi.rates.where("updated_at < ?", last_iso_timestamp).order("updated_at DESC").limit(10)
+            rates = taxi.rates.where("updated_at < ?", last_timestamp).order("updated_at DESC").limit(10)
           else
             rates = taxi.rates.order("updated_at DESC").limit(10)
           end
