@@ -105,6 +105,9 @@ module Api
             taxi = Taxi.find_or_create_by(plate_no: item.plate_no)
             item.taxi = taxi
           end
+
+          item.save!
+          
           render json:{success: true}
         rescue Exception => e
           render json:{success:false, message: e.to_s}
