@@ -92,7 +92,7 @@ module Api
 
       def update_item
         begin
-          item = item.find(params[:item_id])
+          item = Item.find(params[:item_id])
 
           item.item_name = params[:item_name] if params.has_key?(:item_name)
           item.description = params[:item_desc] if params.has_key?(:item_desc)
