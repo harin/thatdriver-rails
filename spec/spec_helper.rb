@@ -42,7 +42,7 @@ RSpec.configure do |config|
   config.order = "random"
   # Configure generators values.
 
-
+  config.include Devise::TestHelpers, :type => :controller
 end
 
 
