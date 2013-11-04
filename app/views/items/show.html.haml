@@ -2,14 +2,14 @@
 
 %p
   %b Returned:
-  = @lost_item.returned
+  = @item.returned
 %p
   %b Location:
-  = @lost_item.location
+  = @item.location
 %p
   %b When:
-  = @lost_item.when
+  = @item.when
 
-= link_to 'Edit', edit_lost_item_path(@lost_item)
+= link_to 'Edit', edit_item_path(@item)
 \|
-= link_to 'Back', lost_items_path
+= link_to 'Back', items_path

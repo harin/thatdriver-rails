@@ -2,6 +2,15 @@ class Taxi < ActiveRecord::Base
   has_many :rates
   has_many :lost_items, class_name: "Item"
   validates :plate_no, presence:true, uniqueness: true, format:{with:/\d?[ก-ฮ][ก-ฮ]\d{1,4}/, message:"does not match plate number format 1aa1111"}
+  validates :province, inclusion: ['กรุงเทพมหานคร'], allow_blank: true
+
+  after_initialize :custom_init
+  def custom_init
+    #set default for returned to be false
+
+    #set province default to bangkok
+    self.province = 'กรุงเทพมหานคร' if (self.has_attribute? :province) && self.province.nil?
+  end
 
   def average_rating
     ratings = self.rates.pluck(:rating) #find rating for this taxi and get only the rating column
