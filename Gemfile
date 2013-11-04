@@ -3,8 +3,6 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'haml-rails'
 gem 'devise'
-gem 'foreigner'
-gem 'faker'
 gem 'rails', '4.0.0'
 gem 'newrelic_rpm'
 
@@ -41,6 +39,9 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.0'
   gem "factory_girl_rails", "~> 4.0"
   gem 'shoulda-matchers'
+  gem 'faker'
+  gem 'foreigner'
+  gem 'json_spec'
 end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
