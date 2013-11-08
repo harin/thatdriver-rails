@@ -50,12 +50,15 @@ module Api
         plate_no = params[:plate_no]
         begin
           taxi = Taxi.find_or_create_by(plate_no: plate_no)
-          
+
           if taxi.ratable_by_user? @user
-            taxi.rates.create!(comment: params[:comment], rating: params[:vote], user_id:@user.id)
+            puts taxi.inspect
+            taxi.rates.create!(comment: params[:comment], 
+                               rating: params[:vote], user_id:@user.id)
+
               render json: {success: true}
           else
-            render json: {success: false, cooldown: cooldown.round(1)}
+            render json: {success: false, message: 'please wait 24 hours before voting again'}
           end
           
         #   last_rated = @user.rates.where(taxi_id:taxi.id).pluck(:updated_at).max

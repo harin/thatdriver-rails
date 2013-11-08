@@ -26,20 +26,14 @@ describe Api::V1::TaxisController do
     end
 
     it "should let user rate taxi" do
-      user_1.ensure_authentication_token
-      user_1.save!
-      taxi_1.save!
+      post :rate_taxi, vote: 1, comment:'testtesttest', user_id: user_1.id, auth_token: user_1.authentication_token, plate_no: taxi_1.plate_no
 
-      post :rate_taxi, rating:1, comment:'testtesttest',user_id: user_1.id, auth_token: user_1.authentication_token
-
-      puts response.body
       response.should be_success
       response.body.should have_json_path("success")
 
       json = parse_json response.body
 
       json["success"].should eq(true)
-
     end
   end #end rate_taxi
 end

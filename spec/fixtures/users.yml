@@ -2,5 +2,5 @@ user_1:
   username: 'test'
   encrypted_password: '12345678'
   email: 'test@testuser.com'
-  
+  authentication_token: 'blah2423232'
 

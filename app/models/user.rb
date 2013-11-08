@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
-  before_save :ensure_authentication_token
-  after_create :ensure_authentication_token
+  before_create :ensure_authentication_token
+
+  # before_save :ensure_authentication_token
+  #after_create :ensure_authentication_token
   
   has_many :rates
   has_many :found_items, class_name: "Item", foreign_key: 'founder_id'
@@ -23,7 +25,7 @@ class User < ActiveRecord::Base
 
 # authentication methods
   def ensure_authentication_token
-    if authentication_token.blank?
+    if authentication_token.blank?p
       self.authentication_token = generate_authentication_token
     end
   end
