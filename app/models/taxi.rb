@@ -12,6 +12,27 @@ class Taxi < ActiveRecord::Base
     self.province = 'กรุงเทพมหานคร' if (self.has_attribute? :province) && self.province.nil?
   end
 
+  def ratable_by_user?(user)
+    if user
+      last_rated = user.rates.where(taxi_id:self.id).pluck(:updated_at).max
+      #check if rated in the same taxi in the last 24 hours
+      if last_rated.nil?
+        #first rating
+        return true
+      else
+        #rate more than once
+        elapse_time = (Time.now - last_rated.to_time)/3600
+        if elapse_time > 24
+          #already 24 hours
+          return true
+        else
+          #not 24 hours yet
+          return false
+        end
+      end
+    end
+  end
+
   def average_rating
     ratings = self.rates.pluck(:rating) #find rating for this taxi and get only the rating column
     if ratings.count > 0

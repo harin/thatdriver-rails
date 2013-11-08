@@ -7,12 +7,14 @@ describe HomeController do
 
   before do
     sign_in user_1
+    
   end
   
   describe "#index" do
     it "should be success" do
       get :index
       response.should be_success
+
     end
   end  
   

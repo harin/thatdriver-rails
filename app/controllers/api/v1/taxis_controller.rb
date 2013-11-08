@@ -51,31 +51,37 @@ module Api
         begin
           taxi = Taxi.find_or_create_by(plate_no: plate_no)
           
-          last_rated = @user.rates.where(taxi_id:taxi.id).pluck(:updated_at).max
-
-          #check if rated in the same taxi in the last 24 hours
-
-
-          if last_rated.nil?
-            #first rating
+          if taxi.ratable_by_user? @user
             taxi.rates.create!(comment: params[:comment], rating: params[:vote], user_id:@user.id)
-            render json: {success: true}
-          else
-            #rate more than once
-
-            #find cool down in hours
-            cooldown = 24 - (Time.now - last_rated.to_time)/3600
-
-            if cooldown < 0
-              taxi.rates.create!(comment: params[:comment], rating: params[:vote], user_id:@user.id)
               render json: {success: true}
-            else
-              render json: {success: false, cooldown: cooldown.round(1)}
-            end
+          else
+            render json: {success: false, cooldown: cooldown.round(1)}
           end
-        rescue Exception => e
-          puts "message->#{e.class}"
-          render json: {success: false, message: e.to_s}
+          
+        #   last_rated = @user.rates.where(taxi_id:taxi.id).pluck(:updated_at).max
+
+        #   #check if rated in the same taxi in the last 24 hours
+
+        #   if last_rated.nil?
+        #     #first rating
+        #     taxi.rates.create!(comment: params[:comment], rating: params[:vote], user_id:@user.id)
+        #     render json: {success: true}
+        #   else
+        #     #rate more than once
+
+        #     #find cool down in hours
+        #     cooldown = 24 - (Time.now - last_rated.to_time)/3600
+
+        #     if cooldown < 0
+        #       taxi.rates.create!(comment: params[:comment], rating: params[:vote], user_id:@user.id)
+        #       render json: {success: true}
+        #     else
+        #       render json: {success: false, cooldown: cooldown.round(1)}
+        #     end
+        #   end
+        # rescue Exception => e
+        #   puts "message->#{e.class}"
+        #   render json: {success: false, message: e.to_s}
         end
       end 
 

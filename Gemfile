@@ -5,6 +5,7 @@ gem 'haml-rails'
 gem 'devise'
 gem 'rails', '4.0.0'
 gem 'newrelic_rpm'
+gem 'cancan'
 
 # Use postgresql as the database for Active Record
 gem 'pg'

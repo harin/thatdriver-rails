@@ -8,16 +8,18 @@ module Api
           username = params[:username]
           password = params[:password]
           user = User.find_by(username:username)
-          if user.valid_password?(password)
-            render json: {auth_token: user.authentication_token, success:true, user: user.summary}
+          if user
+            if user.valid_password?(password)
+              render json: {auth_token: user.authentication_token, success:true, user: user.summary}
+            else
+              raise
+            end
           else
             raise # go to the rescue block
           end
         rescue Exception =>e
-          puts e
           render json: {success:false, message:'authentication failed'}, status: :unauthorized
         end
-
       end
 
       def register
@@ -26,7 +28,6 @@ module Api
           
           username = params[:username]
           password = params[:password]
-
 
           user = User.new(username: username, password:password)
           if params.has_key? :first_name

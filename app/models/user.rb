@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   before_save :ensure_authentication_token
-
+  after_create :ensure_authentication_token
+  
   has_many :rates
   has_many :found_items, class_name: "Item", foreign_key: 'founder_id'
   has_many :lost_items, class_name: "Item", foreign_key: 'loser_id'
@@ -10,6 +11,15 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :username, uniqueness: true
+  validates :role, inclusion: ['admin','user'], allow_blank:true
+
+  after_initialize :custom_init
+  def custom_init
+    #set default for returned to be false
+
+    #set province default to bangkok
+    self.role = 'user' if (self.has_attribute? :role) && self.role.nil?
+  end
 
 # authentication methods
   def ensure_authentication_token
