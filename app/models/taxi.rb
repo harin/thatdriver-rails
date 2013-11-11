@@ -2,7 +2,9 @@ class Taxi < ActiveRecord::Base
   has_many :rates
   has_many :lost_items, class_name: "Item"
   validates :plate_no, presence:true, uniqueness: true, format:{with:/\d?[ก-ฮ][ก-ฮ]\d{1,4}/, message:"does not match plate number format 1aa1111"}
-  validates :province, inclusion: ['กรุงเทพมหานคร'], allow_blank: true
+  validates :province, inclusion: PROVINCE, allow_blank: true
+  
+  # PROVINCEs = %w(djsjfvf fdfs)
 
   after_initialize :custom_init
   def custom_init
