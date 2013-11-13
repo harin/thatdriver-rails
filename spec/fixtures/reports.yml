@@ -1,0 +1,22 @@
+report_1:
+  id: 1
+  user_id: 1
+  taxi_id: 1
+  description: 'Just a test description'
+  location: 'Sukhumvit'
+  action_type: 1
+report_2:
+  id: 2
+  user_id: 1
+  taxi_id: 1
+  description: '2Just a test description'
+  location: '2ukhumvit'
+  action_type: 2
+report_3:
+  id: 3
+  user_id: 1
+  taxi_id: 1
+  description: '3Just a test description'
+  location: '3Sukhumvit'
+  action_type: 0
+

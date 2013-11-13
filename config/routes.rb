@@ -22,6 +22,8 @@ ThatDriver::Application.routes.draw do
       post '/resolve_item', to: 'items#resolve_item'
       post '/update_item', to: 'items#update_item'
       post '/delete_item', to: 'items#delete_item'
+
+      resources :reports, only:[:index,:show,:create,:update,:destroy]
     end
   end
 

@@ -1,4 +1,5 @@
 user_1:
+  id: 1
   username: 'test'
   encrypted_password: '12345678'
   email: 'test@testuser.com'
