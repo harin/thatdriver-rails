@@ -1,5 +1,6 @@
 class Taxi < ActiveRecord::Base
   has_many :rates
+  has_many :reports
   has_many :lost_items, class_name: "Item"
   validates :plate_no, presence:true, uniqueness: true, format:{with:/\d?[ก-ฮ][ก-ฮ]\d{1,4}/, message:"does not match plate number format 1aa1111"}
   validates :province, inclusion: PROVINCE, allow_blank: true
@@ -12,6 +13,27 @@ class Taxi < ActiveRecord::Base
 
     #set province default to bangkok
     self.province = 'กรุงเทพมหานคร' if (self.has_attribute? :province) && self.province.nil?
+  end
+
+  def reportable_by_user?(user)
+    if user
+      last_reported = user.reports.where(taxi_id:self.id).pluck(:updated_at).max
+      #check if rated in the same taxi in the last 24 hours
+      if last_reported.nil?
+        #first rating
+        return true
+      else
+        #rate more than once
+        elapse_time = (Time.now - last_reported.to_time)/3600
+        if elapse_time > 24
+          #already 24 hours
+          return true
+        else
+          #not 24 hours yet
+          return false
+        end
+      end
+    end
   end
 
   def ratable_by_user?(user)
